@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ed2fb949-24e2-4cd6-a314-c497770ad114",
+    "slug": "jora-a8b4da4c",
+    "businessName": "Jora",
+    "description": "strigu",
+    "phone": "+77015880006",
+    "whatsapp": "",
+    "images": [
+      "/uploads/2e0d0d6b-875d-4a69-8ce5-4434fd50f9d2.jpg",
+      "/uploads/8bc2d2b5-8a4d-40da-8654-7ddcded3e3c3.jpg",
+      "/uploads/e8d5aa81-6d94-4d09-82c0-ea4e690230bd.jpg"
+    ],
+    "createdAt": "2026-03-29T17:01:30.518Z"
+  },
+  {
+    "id": "2299e6ad-a005-4da5-8a43-025efcec59cb",
+    "slug": "jora-892c53fb",
+    "businessName": "Jora",
+    "description": "strigu",
+    "phone": "+77015880006",
+    "whatsapp": "+77015880006",
+    "images": [
+      "/uploads/bf6f3e68-dea2-4604-a440-464faf06fd11.jpg",
+      "/uploads/2ff0c591-5331-4f50-9565-285daaee3b0e.jpg",
+      "/uploads/e65dc4a6-ac94-4def-9122-62e15feff76a.jpg"
+    ],
+    "createdAt": "2026-03-29T17:01:58.627Z"
+  }
+]

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SiteRocket — Admin</title>
+</head>
+<body>
+  <h1>All Sites (<%= sites.length %>)</h1>
+  <ul>
+    <% sites.forEach(site => { %>
+      <li>
+        <a href="/site/<%= site.slug %>"><%= site.businessName %></a>
+        — <small><%= site.createdAt %></small>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

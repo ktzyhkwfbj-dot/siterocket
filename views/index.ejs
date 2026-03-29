@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SiteRocket — Сайт с WhatsApp за 2 минуты</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand:       #1a1a2e;
+      --brand-light: #16213e;
+      --accent:      #e94560;
+      --accent-dk:   #c73652;
+      --whatsapp:    #25d366;
+      --call:        #3a86ff;
+      --text:        #1a1a2e;
+      --text-muted:  #6b7280;
+      --text-light:  #9ca3af;
+      --surface:     #ffffff;
+      --bg:          #f8f9fc;
+      --border:      #e5e7eb;
+      --border-focus:#3a86ff;
+      --radius:      16px;
+      --radius-sm:   10px;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
+      --shadow-md:   0 4px 16px rgba(0,0,0,.09), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg:   0 12px 40px rgba(0,0,0,.13), 0 4px 12px rgba(0,0,0,.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26,26,46,.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.03em;
+    }
+
+    .nav-logo em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .nav-link {
+      font-size: .8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .nav-link:hover { color: #fff; }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(140deg, var(--brand) 0%, var(--brand-light) 55%, #0f3460 100%);
+      padding: 64px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 15% 10%, rgba(233,69,96,.2) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 85% 90%, rgba(58,134,255,.18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.85);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--whatsapp);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--whatsapp);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 8vw, 3.4rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.08;
+      letter-spacing: -.03em;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, #e94560, #ff7f50);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 3.5vw, 1.15rem);
+      color: rgba(255,255,255,.65);
+      line-height: 1.6;
+      max-width: 440px;
+      margin: 0 auto 16px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 36px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: .72rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.5);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-top: 4px;
+    }
+
+    /* ── WAVE ────────────────────────────────────────── */
+    .wave { display: block; width: 100%; height: 48px; background: #0f3460; }
+    .wave-fill { fill: var(--bg); }
+
+    /* ── LAYOUT ──────────────────────────────────────── */
+    .page-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── FORM SECTION ────────────────────────────────── */
+    .form-section {
+      padding: 56px 0 0;
+    }
+
+    .section-tag {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-heading {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: .9rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 32px 28px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    label .req { color: var(--accent); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: .95rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color .18s, box-shadow .18s, background .18s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus {
+      border-color: var(--border-focus);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px rgba(58,134,255,.12);
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: var(--text-light); }
+
+    textarea { resize: vertical; min-height: 96px; line-height: 1.55; }
+
+    /* file upload */
+    .upload-area {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .18s, background .18s;
+      position: relative;
+      background: var(--bg);
+    }
+
+    .upload-area:hover, .upload-area.drag-over {
+      border-color: var(--border-focus);
+      background: rgba(58,134,255,.04);
+    }
+
+    .upload-area input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-icon { font-size: 2rem; line-height: 1; margin-bottom: 8px; }
+
+    .upload-text {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .upload-hint {
+      font-size: .75rem;
+      color: var(--text-muted);
+    }
+
+    .upload-hint strong {
+      color: var(--border-focus);
+      font-weight: 700;
+    }
+
+    /* previews */
+    #preview-strip {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .preview-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--border);
+      animation: pop .2s ease;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* submit */
+    .btn-submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 18px;
+      margin-top: 24px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dk));
+      color: #fff;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(233,69,96,.4);
+      transition: transform .18s, box-shadow .18s, filter .18s;
+      letter-spacing: -.01em;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(255,255,255,.12), transparent);
+      pointer-events: none;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(233,69,96,.5);
+      filter: brightness(1.06);
+    }
+
+    .btn-submit:active { transform: scale(.98); }
+
+    .form-footer-note {
+      text-align: center;
+      font-size: .75rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    /* ── PREVIEW MOCKUP ──────────────────────────────── */
+    .preview-section {
+      padding: 64px 0;
+    }
+
+    .mockup-phone {
+      max-width: 320px;
+      margin: 0 auto;
+      background: var(--brand);
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,.06);
+    }
+
+    .mockup-screen {
+      background: var(--bg);
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .mockup-hero {
+      background: linear-gradient(135deg, var(--brand), #0f3460);
+      padding: 28px 20px 24px;
+      text-align: center;
+    }
+
+    .mockup-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.8);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+    }
+
+    .mockup-name {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.02em;
+      margin-bottom: 4px;
+    }
+
+    .mockup-desc {
+      font-size: .65rem;
+      color: rgba(255,255,255,.6);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .mockup-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mockup-btn {
+      flex: 1;
+      padding: 9px 6px;
+      border-radius: 9px;
+      font-size: .65rem;
+      font-weight: 700;
+      text-align: center;
+      color: #fff;
+    }
+
+    .mockup-btn.call { background: linear-gradient(135deg, var(--call), #2563eb); }
+    .mockup-btn.wa   { background: linear-gradient(135deg, var(--whatsapp), #1da851); }
+
+    .mockup-body {
+      padding: 16px 16px 20px;
+    }
+
+    .mockup-section-title {
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .mockup-photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-bottom: 16px;
+    }
+
+    .mockup-photo {
+      aspect-ratio: 1;
+      border-radius: 7px;
+      overflow: hidden;
+    }
+
+    .mockup-photo-inner {
+      width: 100%;
+      height: 100%;
+    }
+
+    .mockup-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mockup-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: .65rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── EXAMPLES ────────────────────────────────────── */
+    .examples-section {
+      padding: 0 0 72px;
+    }
+
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .example-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      transition: transform .22s, box-shadow .22s;
+    }
+
+    .example-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .example-cover {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .example-cover.barber  { background: linear-gradient(135deg, #1a1a2e, #2d1b69); }
+    .example-cover.cafe    { background: linear-gradient(135deg, #3d2314, #8b4513); }
+    .example-cover.nails   { background: linear-gradient(135deg, #2d1b3d, #8b1a8b); }
+    .example-cover.repair  { background: linear-gradient(135deg, #0f2027, #1a4a6e); }
+
+    .example-body {
+      padding: 20px;
+    }
+
+    .example-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 4px;
+    }
+
+    .example-desc {
+      font-size: .82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .example-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .example-btn {
+      flex: 1;
+      padding: 9px 10px;
+      border-radius: 9px;
+      font-size: .78rem;
+      font-weight: 700;
+      text-align: center;
+      color: #fff;
+      text-decoration: none;
+      transition: filter .15s, transform .15s;
+    }
+
+    .example-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .example-btn.call  { background: linear-gradient(135deg, var(--call), #2563eb); }
+    .example-btn.wa    { background: linear-gradient(135deg, var(--whatsapp), #1da851); }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--brand);
+      color: rgba(255,255,255,.45);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: .78rem;
+    }
+
+    footer strong { color: rgba(255,255,255,.8); font-weight: 700; }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: 1; }
+      .card { padding: 24px 18px; }
+      .hero { padding: 48px 20px 64px; }
+      .hero-stats { gap: 20px; }
+    }
+
+    @media (min-width: 768px) {
+      .preview-section .page-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Site<em>Rocket</em> 🚀</span>
+    <a class="nav-link" href="/admin">Панель</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Бесплатно · Быстро · Просто</div>
+    <h1>Сайт с WhatsApp<br><em>за 2 минуты</em></h1>
+    <p>Клиенты будут писать вам напрямую — без посредников и комиссий</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">2 мин</span>
+        <span class="stat-label">до запуска</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">0 ₸</span>
+        <span class="stat-label">стоимость</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3 фото</span>
+        <span class="stat-label">для галереи</span>
+      </div>
+    </div>
+  </section>
+
+  <svg class="wave" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="wave-fill" d="M0,48 C360,0 1080,0 1440,48 L1440,48 L0,48 Z"/>
+  </svg>
+
+  <!-- FORM -->
+  <section class="form-section">
+    <div class="page-wrap">
+      <div class="section-tag">Шаг 1 из 1</div>
+      <h2 class="section-heading">Заполните данные</h2>
+      <p class="section-sub">Всё остальное мы сделаем сами</p>
+
+      <div class="card">
+        <form action="/create-site" method="POST" enctype="multipart/form-data">
+          <div class="form-grid">
+
+            <div class="field full">
+              <label>Название бизнеса <span class="req">*</span></label>
+              <input type="text" name="businessName" placeholder="Например: Барбершоп Almaty" required autocomplete="organization">
+            </div>
+
+            <div class="field full">
+              <label>Описание</label>
+              <textarea name="description" placeholder="Чем вы занимаетесь, что предлагаете клиентам…"></textarea>
+            </div>
+
+            <div class="field">
+              <label>Телефон</label>
+              <input type="tel" name="phone" placeholder="+7 701 123 45 67" autocomplete="tel">
+            </div>
+
+            <div class="field">
+              <label>WhatsApp</label>
+              <input type="tel" name="whatsapp" placeholder="+7 701 123 45 67" autocomplete="tel">
+            </div>
+
+            <div class="field full">
+              <label>Фотографии <span style="color:var(--text-light);font-weight:500;text-transform:none;letter-spacing:0">— до 3 штук</span></label>
+              <div class="upload-area" id="upload-area">
+                <input type="file" name="images" id="file-input" accept="image/*" multiple>
+                <div class="upload-icon">📸</div>
+                <div class="upload-text">Нажмите или перетащите фото</div>
+                <div class="upload-hint">JPG, PNG, WebP · <strong>до 3 файлов</strong></div>
+              </div>
+              <div id="preview-strip"></div>
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn-submit">
+            Создать сайт &nbsp;→
+          </button>
+          <p class="form-footer-note">Ваш сайт будет доступен сразу после создания</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREVIEW MOCKUP -->
+  <section class="preview-section">
+    <div class="page-wrap">
+      <div>
+        <div class="section-tag">Как это выглядит</div>
+        <h2 class="section-heading">Готовый сайт<br>прямо в телефоне</h2>
+        <p class="section-sub" style="margin-bottom:0">Клиенты открывают ссылку и сразу видят кнопку «Написать в WhatsApp». Никаких лишних шагов.</p>
+      </div>
+
+      <div class="mockup-phone">
+        <div class="mockup-screen">
+          <div class="mockup-hero">
+            <div class="mockup-badge">Бизнес-страница</div>
+            <div class="mockup-name">Ваш Бизнес</div>
+            <div class="mockup-desc">Краткое описание того, чем<br>вы занимаетесь</div>
+            <div class="mockup-btns">
+              <div class="mockup-btn call">📞 Позвонить</div>
+              <div class="mockup-btn wa">💬 WhatsApp</div>
+            </div>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-section-title">Фотографии</div>
+            <div class="mockup-photos">
+              <div class="mockup-photo">
+                <svg class="mockup-photo-inner" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="60" height="60" fill="#e5e7eb"/>
+                  <rect x="18" y="14" width="24" height="18" rx="3" fill="#d1d5db"/>
+                  <circle cx="30" cy="40" r="8" fill="#d1d5db"/>
+                </svg>
+              </div>
+              <div class="mockup-photo">
+                <svg class="mockup-photo-inner" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="60" height="60" fill="#dbeafe"/>
+                  <circle cx="30" cy="28" r="12" fill="#bfdbfe"/>
+                  <rect x="15" y="44" width="30" height="6" rx="3" fill="#bfdbfe"/>
+                </svg>
+              </div>
+              <div class="mockup-photo">
+                <svg class="mockup-photo-inner" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="60" height="60" fill="#fce7f3"/>
+                  <polygon points="30,12 46,42 14,42" fill="#fbcfe8"/>
+                </svg>
+              </div>
+            </div>
+            <div class="mockup-section-title">Контакты</div>
+            <div class="mockup-contact">
+              <div class="mockup-contact-row">📞 <span>+7 701 123 45 67</span></div>
+              <div class="mockup-contact-row">💬 <span>+7 701 123 45 67</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAMPLES -->
+  <section class="examples-section">
+    <div class="page-wrap">
+      <div class="section-tag">Примеры</div>
+      <h2 class="section-heading">Уже используют</h2>
+      <p class="section-sub">Сайты, которые можно сделать за 2 минуты</p>
+
+      <div class="examples-grid">
+
+        <div class="example-card">
+          <div class="example-cover barber">💈</div>
+          <div class="example-body">
+            <div class="example-name">Barbershop Almaty</div>
+            <div class="example-desc">Стрижки, бороды, укладки. Мастера с опытом 5+ лет. Запись через WhatsApp — ответим за 5 минут.</div>
+            <div class="example-btns">
+              <span class="example-btn call">📞 Позвонить</span>
+              <span class="example-btn wa">💬 WhatsApp</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-cover cafe">☕</div>
+          <div class="example-body">
+            <div class="example-name">Кофейное Зерно</div>
+            <div class="example-desc">Авторский кофе, завтраки и бизнес-ланчи. Работаем с 8:00 до 22:00. Есть доставка по городу.</div>
+            <div class="example-btns">
+              <span class="example-btn call">📞 Позвонить</span>
+              <span class="example-btn wa">💬 WhatsApp</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-cover nails">💅</div>
+          <div class="example-body">
+            <div class="example-name">Nail Studio Astana</div>
+            <div class="example-desc">Маникюр, педикюр, наращивание. Только гипоаллергенные материалы. Запись онлайн или в WhatsApp.</div>
+            <div class="example-btns">
+              <span class="example-btn call">📞 Позвонить</span>
+              <span class="example-btn wa">💬 WhatsApp</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-cover repair">🔧</div>
+          <div class="example-body">
+            <div class="example-name">Мастер Сервис</div>
+            <div class="example-desc">Ремонт телефонов, ноутбуков и бытовой техники. Выезд на дом по Алматы. Гарантия на все работы.</div>
+            <div class="example-btns">
+              <span class="example-btn call">📞 Позвонить</span>
+              <span class="example-btn wa">💬 WhatsApp</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <strong>SiteRocket 🚀</strong> — простые сайты для бизнеса Алматы и Астаны
+  </footer>
+
+  <script>
+    const input    = document.getElementById('file-input');
+    const strip    = document.getElementById('preview-strip');
+    const area     = document.getElementById('upload-area');
+
+    function renderPreviews(files) {
+      strip.innerHTML = '';
+      const max = Math.min(files.length, 3);
+      for (let i = 0; i < max; i++) {
+        const url = URL.createObjectURL(files[i]);
+        const img = document.createElement('img');
+        img.src = url;
+        img.className = 'preview-thumb';
+        img.onload = () => URL.revokeObjectURL(url);
+        strip.appendChild(img);
+      }
+    }
+
+    input.addEventListener('change', () => renderPreviews(input.files));
+
+    area.addEventListener('dragover',  e => { e.preventDefault(); area.classList.add('drag-over'); });
+    area.addEventListener('dragleave', () => area.classList.remove('drag-over'));
+    area.addEventListener('drop', e => {
+      e.preventDefault();
+      area.classList.remove('drag-over');
+      const dt = e.dataTransfer;
+      if (dt.files.length) {
+        input.files = dt.files;
+        renderPreviews(dt.files);
+      }
+    });
+  </script>
+
+</body>
+</html>
