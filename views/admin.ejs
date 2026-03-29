@@ -5,7 +5,11 @@
   <title>SiteRocket — Admin</title>
 </head>
 <body>
-  <h1>All Sites (<%= sites.length %>)</h1>
+  <h1>All Sites (<%= sites.length %>)
+    <form method="POST" action="/admin/logout" style="display:inline;margin-left:1rem">
+      <button type="submit" style="font-size:.8rem;padding:.3rem .7rem;cursor:pointer">Выйти</button>
+    </form>
+  </h1>
   <ul>
     <% sites.forEach(site => { %>
       <li>

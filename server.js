@@ -2,6 +2,7 @@ const express  = require('express');
 const path     = require('path');
 const multer   = require('multer');
 const mongoose = require('mongoose');
+const session  = require('express-session');
 const { v4: uuidv4 } = require('uuid');
 const { v2: cloudinary } = require('cloudinary');
 
@@ -36,6 +37,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'siterocket-secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
+}));
 
 // ── Multer — memory storage, upload to Cloudinary manually ───────────────────
 const upload = multer({
@@ -104,8 +111,29 @@ app.get('/site/:slug', async (req, res) => {
   res.render('site', { site });
 });
 
+// GET /admin/login
+app.get('/admin/login', (req, res) => {
+  if (req.session.isAdmin) return res.redirect('/admin');
+  res.render('admin-login', { error: null });
+});
+
+// POST /admin/login
+app.post('/admin/login', (req, res) => {
+  if (req.body.password === 'aidar2024') {
+    req.session.isAdmin = true;
+    return res.redirect('/admin');
+  }
+  res.render('admin-login', { error: 'Неверный пароль' });
+});
+
+// POST /admin/logout
+app.post('/admin/logout', (req, res) => {
+  req.session.destroy(() => res.redirect('/admin/login'));
+});
+
 // GET /admin
 app.get('/admin', async (req, res) => {
+  if (!req.session.isAdmin) return res.redirect('/admin/login');
   const sites = await Site.find().sort({ createdAt: -1 }).lean();
   res.render('admin', { sites });
 });
